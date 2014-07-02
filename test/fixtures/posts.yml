@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  source: MyString
+  id: 1
+  published: 2014-07-01 13:52:56
+  updated: 2014-07-01 13:52:56
+  read: 2014-07-01 13:52:56
+  clicked: 2014-07-01 13:52:56
+  text: MyString
+  nfavorite: 1
+  nretweet: 1
+  score: 1
+  json: MyText
+
+two:
+  source: MyString
+  id: 1
+  published: 2014-07-01 13:52:56
+  updated: 2014-07-01 13:52:56
+  read: 2014-07-01 13:52:56
+  clicked: 2014-07-01 13:52:56
+  text: MyString
+  nfavorite: 1
+  nretweet: 1
+  score: 1
+  json: MyText
