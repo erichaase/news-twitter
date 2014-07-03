@@ -41,7 +41,7 @@ namespace :post do
           :text      => post.text,
           :nfavorite => post.favorite_count,
           :nretweet  => post.retweet_count,
-          :score     => post.retweet_count,
+          :score     => (post.retweet_count + post.favorite_count) / 2,
           :json      => post.attrs.to_json,
         }
 
