@@ -1,19 +1,15 @@
 # TODO
 
 ## Now
+* post:score: iterate through sources/handles in db instead of getting list of Twitter friends
+* model validations
 
 ## Soon
-* post.score
-    * postgresql standard deviation
-    * retweets have 0 favorites
-        * process retweet source to get favorites?
-        * filter out retweets?
-        * only use nretweet for score?
-        * different formula for retweets?
-* model validations
 * add db indices
     * source
     * tid
-    * find others
+    * profile for others
 
 ## Later
+* Store display source (cnnbrk -> CNN Breaking News)
+    * post.user.name
