@@ -1,6 +1,6 @@
 NewsTwitter::Application.routes.draw do
-  get    'posts/:name', to: 'posts#index'
-  delete 'posts/:ids',  to: 'posts#read'
+  get    'posts/:name(.:format)', to: 'posts#index', defaults: { format: 'json' }
+  delete 'posts/:ids',            to: 'posts#read'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

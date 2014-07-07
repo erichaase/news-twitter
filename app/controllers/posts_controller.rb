@@ -8,9 +8,14 @@ class PostsController < ApplicationController
       feed = params[:name]
     end
 
-    # send five highest-scoring Posts
-    posts = Post.where(source: feed).order(:score).reverse_order[0,5]
-    render :json => posts
+    # get five highest-scoring Posts
+    @posts = Post.where(source: feed).order(:score).reverse_order[0,5]
+
+    # render using format type
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @posts}
+    end
   end
 
   def read
