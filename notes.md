@@ -1,11 +1,9 @@
 # TODO
 
 ## Now
-* DELETE route: DELETE /posts/id1,id2 (mark posts as read)
-* cli interface
+* model validations
 
 ## Soon
-* model validations
 * retweet top five percentile
 * add db indices
     * source

@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require 'net/http'
+require 'json'
+require 'io/console'
+require 'date'
+
+http = Net::HTTP.new(ENV['WEB_URL'], ENV['WEB_PORT'])
+get  = Net::HTTP::Get.new("/posts/random.json")
+
+while true
+  response = http.request(get)
+  raise "http get request error: code #{response.code}" if response.code != "200"
+
+  puts
+  ids = []
+  JSON.parse(response.body).each do |post|
+    puts "[%s %s %3d] %s" % [
+      post['source'],
+      Date.parse(post['published']).strftime('%y/%m/%d'),
+      post['score'],
+      post['text'],
+    ]
+    ids << post['id'].to_i
+  end
+
+  abort if STDIN.getch != "n"
+
+  uridel   = "/posts/%s" % [ids.join(",")]
+  delete   = Net::HTTP::Delete.new(uridel)
+  response = http.request(delete)
+  raise "http delete request error: code #{response.code}" if response.code != "200"
+end

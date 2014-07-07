@@ -19,6 +19,10 @@ class PostsController < ApplicationController
   end
 
   def read
+    params[:ids].split(",").each do |id|
+      Post.find(id.to_i).update_attributes(read: DateTime.now.utc)
+    end
+
     render nothing: true
   end
 end
