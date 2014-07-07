@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     end
 
     # get five highest-scoring Posts
-    @posts = Post.where(source: feed).order(:score).reverse_order[0,5]
+    @posts = Post.where(source: feed, read: nil).order(:score).reverse_order[0,5]
 
     # render using format type
     respond_to do |format|
