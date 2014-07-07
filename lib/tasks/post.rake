@@ -2,15 +2,6 @@ require 'twitter'
 require 'date'
 require 'json'
 
-def authenticate
-  Twitter::REST::Client.new do |config|
-    config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
-    config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
-    config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
-    config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
-  end
-end
-
 namespace :post do
 
   desc "Print Posts"
@@ -25,12 +16,17 @@ namespace :post do
 
   desc "Collect and store Posts"
   task :collect => :environment do
-    client = authenticate
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
+      config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
+      config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
+      config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
+    end
 
     client.friends.each do |user|
       handle = user.screen_name
 
-      client.user_timeline(handle, :count => 50).each do |post|
+      client.user_timeline(handle, :count => 100).each do |post|
         attrs = {
           :source    => handle,
           :tid       => post.id,
@@ -56,11 +52,9 @@ namespace :post do
 
   desc "Score Posts"
   task :score => :environment do
-    client = authenticate
+    feeds = Post.select(:source).uniq.map { |p| p.source }
 
-    client.friends.each do |user|
-      handle = user.screen_name
-
+    feeds.each do |handle|
       # calculate retweet percentiles
       prt = {}
       posts = Post.where(source: handle).order(:nretweet)
