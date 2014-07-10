@@ -2,7 +2,7 @@ require 'twitter'
 require 'date'
 require 'json'
 
-namespace :post do
+namespace :posts do
 
   desc "Print Posts"
   task :print => :environment do
