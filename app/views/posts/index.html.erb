@@ -12,7 +12,8 @@
 <% end %>
     <p class="list-group-item-text">
       <%= post.text.gsub(/\s*http(s)?:\/\/\S+/, '') %>
-      (<%= post.published.strftime('%y/%m/%d') %>)
+      [<%= post.score %>]
+      [<%= post.published.strftime('%y/%m/%d') %>]
     </p>
   </a>
 <% end %>

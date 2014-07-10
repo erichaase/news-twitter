@@ -26,3 +26,6 @@ doc/
 /public/system
 config/secrets.yml
 /vendor/bundle
+
+# Mine
+/public/assets
