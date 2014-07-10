@@ -2,6 +2,13 @@
 
 ## Now
 * model validations
+* optimize
+    * post:score:   only update recent posts instead of all posts
+    * post:collect: only update changed data
+    * add db indices
+        * source
+        * tid
+        * profile for others
 
 ## Soon
 * retweet top post of each day (calculate formula)
@@ -9,13 +16,6 @@
 * rspec test cases
 
 ## Later
-* add db indices
-    * source
-    * tid
-    * profile for others
-* optimize
-    * post:score:   only update recent posts instead of all posts
-    * post:collect: only update changed data
 * style list items using score
 * security
     * resolve potential HTML injection for post.text

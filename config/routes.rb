@@ -2,6 +2,8 @@ NewsTwitter::Application.routes.draw do
   get    'posts(/:name(.:format))', to: 'posts#index', defaults: { name: 'random' }
   delete 'posts/:ids',              to: 'posts#read'
 
+  root to: redirect('/404')
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

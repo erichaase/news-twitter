@@ -32,8 +32,6 @@ namespace :post do
           :tid       => post.id,
           :published => DateTime.parse(post.created_at.to_s).utc,
           :updated   => DateTime.now.utc,
-          :read      => nil,
-          :clicked   => nil,
           :text      => post.text.gsub(/\s+/, " "),
           :nfavorite => post.favorite_count,
           :nretweet  => post.retweet_count,
