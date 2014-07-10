@@ -11,7 +11,7 @@
   <a class="list-group-item disabled">
 <% end %>
     <p class="list-group-item-text">
-      <%= post.text.gsub(/\s*http(s)?:\/\/\S+/, '') %>
+      <%= post.clean_text %>
       [<%= post.score %>]
       [<%= post.published.strftime('%y/%m/%d') %>]
     </p>

@@ -1,9 +1,20 @@
 class Post < ActiveRecord::Base
 
   def url
-    text[/http(s)?:\/\/\S+/]
+    urls = URI.extract(text, ['http', 'https'])
+
+    if urls.size < 1
+      nil
+    else
+      urls[0]
+    end
   end
-        
+
+  def clean_text
+    re = URI::regexp(["http", "https"])
+    text.gsub(re, '')
+  end
+
   def to_s
     tz = 'Central Time (US & Canada)'
     ft = '%y/%m/%d-%H:%M:%S'
