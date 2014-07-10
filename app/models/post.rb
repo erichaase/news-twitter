@@ -1,4 +1,9 @@
 class Post < ActiveRecord::Base
+
+  def url
+    text[/http(s)?:\/\/\S+/]
+  end
+        
   def to_s
     tz = 'Central Time (US & Canada)'
     ft = '%y/%m/%d-%H:%M:%S'
@@ -16,4 +21,5 @@ class Post < ActiveRecord::Base
       text,
     ]
   end
+
 end

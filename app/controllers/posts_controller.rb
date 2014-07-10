@@ -1,15 +1,17 @@
 class PostsController < ApplicationController
   def index
-    # setup 'feed'
+
+    # setup @source
     if params[:name] == "random"
-      feeds = Post.select(:source).uniq.map { |p| p.source }
-      feed  = feeds.sample
+      sources = Post.select(:source).uniq.map { |p| p.source }
+      @source  = sources.sample
     else
-      feed = params[:name]
+      @source = params[:name]
     end
 
     # get five highest-scoring Posts
-    @posts = Post.where(source: feed, read: nil).order(:score).reverse_order[0,5]
+    @posts  = Post.where(source: @source, read: nil).order(:score).reverse_order[0,4]
+    @ids = @posts.collect { |post| post.id }
 
     # render using format type
     respond_to do |format|
@@ -22,7 +24,6 @@ class PostsController < ApplicationController
     params[:ids].split(",").each do |id|
       Post.find(id.to_i).update_attributes(read: DateTime.now.utc)
     end
-
     render nothing: true
   end
 end
