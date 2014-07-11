@@ -2,7 +2,6 @@ class Post < ActiveRecord::Base
 
   def url
     urls = URI.extract(text, ['http', 'https'])
-
     if urls.size < 1
       nil
     else
@@ -19,7 +18,7 @@ class Post < ActiveRecord::Base
     tz = 'Central Time (US & Canada)'
     ft = '%y/%m/%d-%H:%M:%S'
 
-    "%-16s %20d %s %s %s %s %5d %5d %5d %s" % [
+    "%-16s %20d %17s %17s %17s %17s %5d %5d %5d %s" % [
       source,
       tid,
                 published.in_time_zone(tz).strftime(ft),
