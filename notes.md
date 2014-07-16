@@ -1,9 +1,12 @@
 # TODO
 
 ## Now
-* model validations
-    * rspec test cases
-* optimization
+* Add logging add-on
+* Include date in score?
+* Configure Unicorn web server
+* Add animation to show DELETE requests
+* Replace sports feeds with nba versions
+* Optimization
     * post:score:   only update recent posts instead of all posts
     * post:collect: only update changed data
     * add db indices
@@ -12,6 +15,8 @@
         * profile for others
 
 ## Soon
+* model validations
+    * rspec test cases
 * retweet top post of each day (calculate formula)
     * delete twitter old posts
 * rspec test cases
@@ -26,6 +31,5 @@
 * post:collect retweet processing
     * filter out?
     * get real nfavorites instead of 0?
-* replace sports feeds with nba versions
 * store display source (cnnbrk -> CNN Breaking News)
     * post.user.name

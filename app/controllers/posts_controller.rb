@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   def index
-
     # setup @source
     if params[:name] == "random"
       sources = Post.select(:source).uniq.map { |p| p.source }
