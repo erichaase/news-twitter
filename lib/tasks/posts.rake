@@ -5,13 +5,15 @@ require 'json'
 namespace :posts do
 
   desc "Print Posts"
-  task :print => :environment do
-    Post.order(:score).each { |p| puts p }
-  end
+  task :print, [:source] => :environment do |t, args|
+    args.with_defaults(:source => "all")
 
-  desc "Delete Posts"
-  task :delete => :environment do
-    Post.delete_all
+    case args.source
+    when 'all'
+      puts Post.all.to_a.sort
+    else
+      puts Post.where(source: args.source).to_a.sort
+    end
   end
 
   desc "Collect and store Posts"
@@ -22,6 +24,8 @@ namespace :posts do
       config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
       config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
     end
+
+    # TODO: error out if authentication failed
 
     client.friends.each do |user|
       handle = user.screen_name

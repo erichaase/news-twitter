@@ -8,14 +8,14 @@ class PostsController < ApplicationController
       @source = params[:name]
     end
 
-    # get five highest-scoring Posts
-    @posts  = Post.where(source: @source, read: nil).order(:score).reverse_order[0,4]
-    @ids = @posts.collect { |post| post.id }
+    # setup posts and ids for view
+    @posts = Post.where(source: @source, read: nil).to_a.sort[0,4]
+    @ids   = @posts.collect { |post| post.id }
 
     # render using format type
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @posts}
+      format.json { render json: @posts }
     end
   end
 

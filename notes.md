@@ -1,11 +1,10 @@
 # TODO
 
 ## Now
-* include date in score?
-* add animation to show DELETE requests
 * optimization
-    * post:score:   only update recent posts instead of all posts
-    * post:collect: only update changed data
+    * *post:score:   only update recent posts instead of all posts*
+    *  post:collect: only update changed data
+* add animation to show DELETE requests
 
 ## Soon
 * replace sports feeds with nba versions
@@ -16,6 +15,8 @@
 * rspec test cases
 
 ## Later
+* highlight date in html
+* sort by non-decayed score
 * configure unicorn web server
 * embed actual twitter posts (Twitter-supported method)
 * style list items using score

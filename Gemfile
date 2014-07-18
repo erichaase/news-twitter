@@ -37,7 +37,10 @@ end
 
 gem 'json'
 gem 'twitter'
-gem 'newrelic_rpm'
+
+group :production do
+  gem 'newrelic_rpm'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
