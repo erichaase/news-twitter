@@ -37,6 +37,7 @@ end
 
 gem 'json'
 gem 'twitter'
+gem 'rack-timeout', github: 'kch/rack-timeout'
 
 group :production do
   gem 'newrelic_rpm'

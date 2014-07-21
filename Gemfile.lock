@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/kch/rack-timeout.git
+  revision: 83ca9f5141c1fdcb626820b1601c406e3a3a560a
+  specs:
+    rack-timeout (0.1.0beta2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -142,6 +148,7 @@ DEPENDENCIES
   json
   newrelic_rpm
   pg (= 0.15.1)
+  rack-timeout!
   rails (= 4.0.5)
   rails_12factor (= 0.0.2)
   sass-rails (= 4.0.2)
