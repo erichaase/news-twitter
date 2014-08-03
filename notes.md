@@ -1,14 +1,17 @@
 # TODO
 
 ## Now
-* Request Timeout errors, during collect and score tasks?
-* optimization
-    * *post:score:   only update recent posts instead of all posts*
-    *  post:collect: only update changed data
+* Request Timeout errors
+* *optimization: post:score: only update recent posts instead of all posts*
 * add animation to show DELETE requests
 * ajax timeout
+* display
+    * original score
+    * negative points
+    * days ago
 
 ## Soon
+* optimization: post:collect: only update changed data (already done via rails?)
 * reddit integration
 * replace sports feeds with nba versions
 * model validations
