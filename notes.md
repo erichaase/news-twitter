@@ -1,29 +1,27 @@
 # TODO
 
 ## Now
-* Request Timeout errors
-* *optimization: post:score: only update recent posts instead of all posts*
-* add animation to show DELETE requests
-* ajax timeout
+* remove laker feeds
 * display
-    * original score
+    * percentile
     * negative points
     * days ago
 
 ## Soon
-* optimization: post:collect: only update changed data (already done via rails?)
-* reddit integration
-* replace sports feeds with nba versions
-* model validations
-    * rspec test cases
-* retweet top post of each day (calculate formula)
-    * delete twitter old posts
-* rspec test cases
+* DELETE requests
+    * add animation
+    * ajax timeout
+* post:collect: only update changed data (already done via rails?)
 
 ## Later
+* reddit integration
+* model validations
+* rspec test cases
+* retweet top post of each day (calculate formula)
+    * delete twitter old posts
+* encode html text (&nsbp;)
 * highlight date in html
 * sort by non-decayed score
-* configure unicorn web server
 * embed actual twitter posts (Twitter-supported method)
 * style list items using score
 * security

@@ -54,29 +54,36 @@ namespace :posts do
 
   desc "Score Posts"
   task :score => :environment do
-    feeds = Post.select(:source).uniq.map { |p| p.source }
+    # to calculate percentiles, only examine posts 'ndays' days ago
+    if ndays = ENV['NEWS_SCORE_NDAYS']
+      ndays = ndays.to_i
+    else
+      ndays = 14
+    end
 
+    feeds = Post.select(:source).uniq.map { |p| p.source }
     feeds.each do |handle|
+      # get posts for the past 'ndays' days
+      posts = Post.where("source = ? AND published > ?", handle, DateTime.now.utc - ndays.day)
+
       # calculate retweet percentiles
       prt = {}
-      posts = Post.where(source: handle).order(:nretweet)
       count = 0
-      posts.each do |p|
+      posts.order(:nretweet).each do |p|
         prt[p.tid] = (count / (posts.size - 1.0)) * 100
         count += 1
       end
 
       # calculate favorite percentiles
       pf = {}
-      posts = Post.where(source: handle).order(:nfavorite)
       count = 0
-      posts.each do |p|
+      posts.order(:nfavorite).each do |p|
         pf[p.tid] = (count / (posts.size - 1.0)) * 100
         count += 1
       end
 
       # store score (average of percentiles)
-      Post.where(source: handle).each do |p|
+      posts.each do |p|
         score = (prt[p.tid] + pf[p.tid]) / 2
         p.update_attributes(score: score.to_i)
       end
