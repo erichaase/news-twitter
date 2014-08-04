@@ -12,8 +12,9 @@
 <% end %>
     <p class="list-group-item-text">
       <%= post.clean_text %>
-      [<%= post.score %>-<%= (post.score - post.score_decayed).to_i %>]
-      [<%= post.published.strftime('%y/%m/%d') %>]
+      [<%= post.score %> |
+       <%= (post.score_decayed - post.score).to_i %> |
+       <%= Date.today.mjd - post.published.to_date.mjd %>d]
     </p>
   </a>
 <% end %>

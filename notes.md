@@ -1,11 +1,6 @@
 # TODO
 
 ## Now
-* remove laker feeds
-* display
-    * percentile
-    * negative points
-    * days ago
 
 ## Soon
 * DELETE requests
