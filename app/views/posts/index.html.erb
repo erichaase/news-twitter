@@ -10,11 +10,13 @@
 <% else %>
   <a class="list-group-item disabled">
 <% end %>
+    <span class="badge">
+      <%= Date.today.mjd - post.published.to_date.mjd %>d
+      <br />
+      <%= post.score %>%
+    </span>
     <p class="list-group-item-text">
       <%= post.clean_text %>
-      <br />
-      [<%= Date.today.mjd - post.published.to_date.mjd %>d]
-      [<%= post.score %>%]
     </p>
   </a>
 <% end %>
