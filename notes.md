@@ -1,16 +1,16 @@
 # TODO
 
 ## Now
-
-## Soon
+* model validations
 * DELETE requests
     * add animation
     * ajax timeout
+
+## Soon
 * post:collect: only update changed data (already done via rails?)
 
 ## Later
 * reddit integration
-* model validations
 * rspec test cases
 * retweet top post of each day (calculate formula)
     * delete twitter old posts
