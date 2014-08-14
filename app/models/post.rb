@@ -15,7 +15,7 @@ class Post < ActiveRecord::Base
   end
 
   def days_old
-    DateTime.now.utc.mjd - DateTime.parse(published.to_s).mjd
+    DateTime.now.utc.mjd - published.to_date.mjd
   end
 
   def score_decayed
