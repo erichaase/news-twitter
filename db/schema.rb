@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717193053) do
+ActiveRecord::Schema.define(version: 20140904161030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "posts", force: true do |t|
     t.string   "source"
-    t.integer  "tid",        limit: 8
+    t.integer  "tid",           limit: 8
     t.datetime "published"
     t.datetime "updated"
     t.datetime "read"
@@ -30,9 +30,12 @@ ActiveRecord::Schema.define(version: 20140717193053) do
     t.text     "json"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "score_decayed"
   end
 
+  add_index "posts", ["published"], name: "index_posts_on_published", using: :btree
   add_index "posts", ["read"], name: "index_posts_on_read", using: :btree
+  add_index "posts", ["score_decayed"], name: "index_posts_on_score_decayed", using: :btree
   add_index "posts", ["source"], name: "index_posts_on_source", using: :btree
   add_index "posts", ["tid"], name: "index_posts_on_tid", using: :btree
 

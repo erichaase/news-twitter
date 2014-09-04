@@ -2,14 +2,24 @@ class PostsController < ApplicationController
   def index
     # setup @source
     if params[:name] == "random"
-      sources = Post.select(:source).uniq.map { |p| p.source }
-      @source  = sources.sample
+      @source = Post.distinct.pluck(:source).sample
     else
       @source = params[:name]
     end
 
+    # setup # of days to look back
+    if ndays = ENV['NEWS_SCORE_NDAYS']
+      ndays = ndays.to_i
+    else
+      ndays = 30
+    end
+
     # setup posts and ids for view
-    @posts = Post.where(source: @source, read: nil).to_a.sort[0,4]
+    @posts = Post.where("source = ? AND published > ? AND read IS ?",
+                        @source,
+                        DateTime.now.utc - ndays.day,
+                        nil
+                       ).order(score_decayed: :desc).first(4)
     @ids   = @posts.collect { |post| post.id }
 
     # render using format type

@@ -4,18 +4,6 @@ require 'json'
 
 namespace :posts do
 
-  desc "Print Posts"
-  task :print, [:source] => :environment do |t, args|
-    args.with_defaults(:source => "all")
-
-    case args.source
-    when 'all'
-      puts Post.all.to_a.sort
-    else
-      puts Post.where(source: args.source).to_a.sort
-    end
-  end
-
   desc "Collect and store Posts"
   task :collect => :environment do
     client = Twitter::REST::Client.new do |config|
@@ -46,6 +34,7 @@ namespace :posts do
           post.update_attributes(attrs)
         else
           attrs[:score] = 0
+          attrs[:score_decayed] = 0
           Post.create(attrs)
         end
       end
@@ -58,10 +47,10 @@ namespace :posts do
     if ndays = ENV['NEWS_SCORE_NDAYS']
       ndays = ndays.to_i
     else
-      ndays = 14
+      ndays = 30
     end
 
-    feeds = Post.select(:source).uniq.map { |p| p.source }
+    feeds = Post.distinct.pluck(:source)
     feeds.each do |handle|
       # get posts for the past 'ndays' days
       posts = Post.where("source = ? AND published > ?", handle, DateTime.now.utc - ndays.day)
@@ -85,7 +74,17 @@ namespace :posts do
       # store score (average of percentiles)
       posts.each do |p|
         score = (prt[p.tid] + pf[p.tid]) / 2
-        p.update_attributes(score: score.to_i)
+
+        if decay_factor = ENV['NEWS_SCORE_DECAY_FACTOR']
+          decay_factor = 1 + p.days_old * decay_factor.to_f
+        else
+          # zero out score if days_old == 30
+          # decrement score by 1/30 for each day passed
+          decay_factor = 1 + p.days_old * (-1.0 / 30)
+        end
+        score_decayed = score * decay_factor
+
+        p.update_attributes(score: score.to_i, score_decayed: score_decayed.to_i)
       end
     end
   end
