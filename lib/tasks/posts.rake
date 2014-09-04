@@ -44,11 +44,7 @@ namespace :posts do
   desc "Score Posts"
   task :score => :environment do
     # to calculate percentiles, only examine posts 'ndays' days ago
-    if ndays = ENV['NEWS_SCORE_NDAYS']
-      ndays = ndays.to_i
-    else
-      ndays = 30
-    end
+    ndays = ENV.has_key?('NEWS_SCORE_NDAYS') ? ENV['NEWS_SCORE_NDAYS'].to_i : 14
 
     feeds = Post.distinct.pluck(:source)
     feeds.each do |handle|
@@ -75,13 +71,10 @@ namespace :posts do
       posts.each do |p|
         score = (prt[p.tid] + pf[p.tid]) / 2
 
-        if decay_factor = ENV['NEWS_SCORE_DECAY_FACTOR']
-          decay_factor = 1 + p.days_old * decay_factor.to_f
-        else
-          # zero out score if days_old == 30
-          # decrement score by 1/30 for each day passed
-          decay_factor = 1 + p.days_old * (-1.0 / 30)
-        end
+        # zero out score if days_old == 30
+        # decrement score by 1/30 for each day passed
+        decay_factor = ENV.has_key?('NEWS_SCORE_DECAY_FACTOR') ? ENV['NEWS_SCORE_DECAY_FACTOR'].to_f : -1.0 / 30
+        decay_factor = 1 + p.days_old * decay_factor
         score_decayed = score * decay_factor
 
         p.update_attributes(score: score.to_i, score_decayed: score_decayed.to_i)
